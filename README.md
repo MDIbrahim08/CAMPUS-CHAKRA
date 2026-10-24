@@ -3,19 +3,21 @@
 > **Chanakya University · Global Campus (Haraluru–Polanahalli, Devanahalli, Bengaluru)**  
 > *Srujana 2026 — Prompt to Product (P2P) | Prompt for the Planet*
 
+[![Prompts Workbook PDF](https://img.shields.io/badge/Prompts_Workbook-PDF_Download-8A2BE2?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](PROMPT_WORKBOOK.pdf)
+[![Technical Report PDF](https://img.shields.io/badge/Technical_Report-PDF_Download-E11D48?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](REPORT.pdf)
+[![Edge Accuracy](https://img.shields.io/badge/Edge_ML_Accuracy-86.4%25-059669?style=for-the-badge)](REPORT.md)
+[![Edge Latency](https://img.shields.io/badge/Inference_Speed-0.18ms-0284C7?style=for-the-badge)](REPORT.md)
+
 ![Campus Chakra](web/logo.png)
 
-Campus Chakra is an AI-driven, edge-native micro-grid and circular resource management platform engineered for institutional university campuses. It unifies real-time edge smart-bin sorting, multi-horizon demand forecasting, automated root-cause anomaly detection, and a grounded Multi-Agent Facilities Copilot.
-
----
-
-## 📑 Official Technical Report & Documentation
-
-- 📄 **[Technical Evaluation Report (Markdown)](REPORT.md)** — Complete mathematical foundations, sensor fusion pipeline, edge ML benchmarks, LightGBM trade-offs, and ₹14,200 BOM cost envelope.
-- 📥 **[Technical Evaluation Report (PDF)](REPORT.pdf)** — Official print-ready PDF submission document.
-- 🌐 **[Web Evaluation Report (HTML)](REPORT.html)** — Standalone interactive HTML report.
-- 🎬 **[5-Minute Video Demonstration Script](DEMO_VIDEO_SCRIPT.md)** — Full timed walkthrough of all 7 platform features.
-- 📓 **[Prompt-to-Product Workbook](PROMPT_WORKBOOK.md)** — Step-by-step engineering prompts and validation log.
+> [!IMPORTANT]
+> ### 🏆 For Juries & Evaluators: Prompt-to-Product (P2P) Submission Documents
+> The complete submission deliverables are placed directly in the repository root for immediate evaluation:
+> - 📥 **[PROMPT_WORKBOOK.pdf](PROMPT_WORKBOOK.pdf)** (or **[PROMPTS.pdf](PROMPTS.pdf)**) — **Official Prompt Engineering Workbook (PDF)**: Auditable prompt progression, physical sensor glitch conditioning, LightGBM compute tradeoffs, and multi-agent copilot prompts.
+> - 📓 **[PROMPT_WORKBOOK.md](PROMPT_WORKBOOK.md)** — Interactive Markdown prompt engineering evolution with measurable impact matrix.
+> - 📥 **[REPORT.pdf](REPORT.pdf)** — **Official Technical Evaluation Report (PDF)**: Mathematical formulations, sensor fusion pipeline, 86.4% edge ML validation, and ₹14,200 hardware BOM.
+> - 📄 **[REPORT.md](REPORT.md)** — Complete markdown technical evaluation report.
+> - 🎬 **[DEMO_VIDEO_SCRIPT.md](DEMO_VIDEO_SCRIPT.md)** — Production 5-minute timed walkthrough of all 7 live system features.
 
 ---
 
