@@ -9,6 +9,16 @@ Campus Chakra is an AI-driven, edge-native micro-grid and circular resource mana
 
 ---
 
+## 📑 Official Technical Report & Documentation
+
+- 📄 **[Technical Evaluation Report (Markdown)](REPORT.md)** — Complete mathematical foundations, sensor fusion pipeline, edge ML benchmarks, LightGBM trade-offs, and ₹14,200 BOM cost envelope.
+- 📥 **[Technical Evaluation Report (PDF)](REPORT.pdf)** — Official print-ready PDF submission document.
+- 🌐 **[Web Evaluation Report (HTML)](REPORT.html)** — Standalone interactive HTML report.
+- 🎬 **[5-Minute Video Demonstration Script](DEMO_VIDEO_SCRIPT.md)** — Full timed walkthrough of all 7 platform features.
+- 📓 **[Prompt-to-Product Workbook](PROMPT_WORKBOOK.md)** — Step-by-step engineering prompts and validation log.
+
+---
+
 ## 🌟 Key Features
 
 1. **Animated Video Logo Reveal & Glassmorphism Design:**
