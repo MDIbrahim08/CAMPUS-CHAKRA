@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campus Chakra | Evaluator Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+</head>
+<body class="guide-page">
+  <header class="route-nav"><a href="index.html" class="route-brand"><img src="logo.png" alt="Campus Chakra">CAMPUS CHAKRA</a><a href="dashboard.html" class="route-action">Open dashboard →</a></header>
+  <main class="route-guide-main">
+    <span class="route-kicker">EVALUATOR GUIDE</span>
+    <h1>How Campus Chakra turns<br>evidence into action.</h1>
+    <p>Use this short route before exploring the live operational grid. Each feature accepts the supplied campus benchmark structure and makes its result transparent.</p>
+    <section class="route-guide-grid">
+      <article><span>01</span><h2>Inspect</h2><p>Review campus energy, water, solar, waste, diversion, cost, and carbon across eight buildings.</p></article>
+      <article><span>02</span><h2>Test</h2><p>Upload CSV/XLSX waste or telemetry files to run live classification and forecasting.</p></article>
+      <article><span>03</span><h2>Verify</h2><p>Inspect data integrity, edge buffering, anomaly evidence, and grounded action recommendations.</p></article>
+    </section>
+    <a class="route-primary" href="dashboard.html">Enter live evidence <span>→</span></a>
+  </main>
+  <script>
+    if (window.Lenis) { const lenis = new Lenis({ duration: 1.05 }); function raf(t) { lenis.raf(t); requestAnimationFrame(raf); } requestAnimationFrame(raf); }
+    if (window.gsap) gsap.from('.route-guide-main > *', { y: 20, opacity: 0, duration: .7, stagger: .1, ease: 'power3.out', delay: .1 });
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Campus Chakra Prompt Workbook</title>
+<style>
+@page { size: A4; margin: 14mm; }
+* { box-sizing: border-box; } body { font-family: Arial, Helvetica, sans-serif; color:#172126; font-size:10.2pt; line-height:1.43; margin:0; }
+h1 { font-size:25pt; letter-spacing:-.6px; margin:0 0 5px; color:#123d3a; } h2 { font-size:15pt; margin:17px 0 7px; color:#0b6861; } h3 { font-size:11pt; margin:10px 0 3px; color:#123d3a; }
+p { margin:4px 0 8px; } ul, ol { margin:4px 0 8px; padding-left:20px; } li { margin:2px 0; }
+.top { border-bottom:2px solid #17a99b; padding-bottom:9px; margin-bottom:13px; } .eyebrow { color:#0b6861; text-transform:uppercase; letter-spacing:1.25px; font-size:8pt; font-weight:700; }
+.sub { color:#506169; font-size:10pt; } .tag { display:inline-block; padding:3px 7px; border-radius:10px; background:#e6f6f1; color:#087268; font-size:8pt; font-weight:bold; margin-right:4px; }
+.grid { display:table; width:100%; border-spacing:8px; margin:0 -8px; } .card { display:table-cell; width:33.33%; background:#f5f9f8; border:1px solid #d7e7e3; border-radius:7px; padding:10px; vertical-align:top; }
+table { width:100%; border-collapse:collapse; margin:7px 0 10px; font-size:9.2pt; } th { text-align:left; background:#123d3a; color:white; padding:6px; } td { border-bottom:1px solid #dbe6e3; padding:5px 6px; vertical-align:top; }
+.callout { background:#ecf8f5; border-left:4px solid #15a393; padding:9px 11px; margin:10px 0; } .note { background:#fff8df; border-left:4px solid #e1aa25; padding:9px 11px; margin:10px 0; }
+.page { min-height:267mm; position:relative; page-break-after:always; } .page:last-child { page-break-after:auto; } .footer { position:absolute; bottom:0; left:0; right:0; color:#6c7c80; font-size:8pt; border-top:1px solid #dbe6e3; padding-top:5px; }
+.shot { width:100%; border:1px solid #cfe0dc; border-radius:7px; margin:8px 0 4px; } .caption { color:#506169; font-size:9pt; margin-bottom:11px; }
+.mock { border:1px solid #cfe0dc; border-radius:7px; overflow:hidden; margin:8px 0; } .mock-head { background:#123d3a; color:white; padding:8px 12px; font-size:9pt; } .mock-body { padding:12px; background:#f6fbfa; }
+.kpi { font-weight:bold; color:#087268; font-size:16pt; } code { font-size:8.6pt; background:#edf4f2; padding:1px 3px; }
+</style></head><body><div class="top"><div class="eyebrow">Srujana 2026 · Prompt to Product</div><h1>Campus Chakra</h1><div class="sub">Prompt Workbook · Prompt iterations, tools, evidence and human decisions</div></div>
+<div class="callout"><b>Purpose.</b> This workbook documents how Campus Chakra was shaped through iterative prompting, implementation and validation. It records only tools and outcomes used in the project; public share links must be added by the team before form submission.</div>
+<h2>1. Tools and roles</h2><table><tr><th>Tool / system</th><th>How it supported the work</th></tr>
+<tr><td>Codex CLI</td><td>Repository inspection, backend/API hardening, smoke tests, documentation and submission assembly.</td></tr>
+<tr><td>LLM providers in the product</td><td>Optional facilities-copilot explanations with deterministic local fallback when a provider or network is unavailable.</td></tr>
+<tr><td>Python / FastAPI / scikit-learn</td><td>Data ingestion, validation, edge classification, demand forecasting, dashboard APIs and CSV predictions.</td></tr>
+<tr><td>HTML, CSS, JavaScript, Chart.js</td><td>Interactive dashboard, facility alerts, allocation views and evaluator-facing guide screens.</td></tr></table>
+<h2>2. Prompt iteration log</h2>
+<table><tr><th>Iteration</th><th>Representative prompt</th><th>Decision / outcome</th></tr>
+<tr><td>Schema & constraints</td><td>“Inspect all P2P dataset tables and map their fields to the problem constraints. Identify late data, aliases and unit conflicts.”</td><td>Defined validation, normalization, deduplication and traceable ingestion rules.</td></tr>
+<tr><td>Waste classification</td><td>“Compare sensor-only and edge-available feature sets; retain a model that meets the accuracy and latency constraints.”</td><td>Selected compact forest deployment with explicit sensor-quality features and offline inference.</td></tr>
+<tr><td>Forecasting</td><td>“Benchmark 6h and 12h demand forecasts on chronological holdout; document accuracy / footprint trade-offs.”</td><td>Selected lightweight forecasting bundle and exposes forecast outputs in the API.</td></tr>
+<tr><td>Operational copilot</td><td>“Ground every recommendation in supplied telemetry, event context and operator notes; supply a deterministic fallback.”</td><td>Implemented evidence-led recommendations without making external LLM availability critical.</td></tr></table>
+<h2>3. Human contribution and safeguards</h2><ul><li>Defined the edge-first architecture, measurable success criteria and evaluator workflow.</li><li>Specified idempotent reconciliation for delayed gateway transmissions.</li><li>Chose fairness-aware, building-normalized incentive logic rather than raw consumption comparisons.</li><li>Added input schema validation so jury uploads fail clearly rather than silently producing invalid results.</li></ul>
+<h2>4. Public chat share links</h2><div class="note"><b>Team action required before upload:</b> add genuine public share links below. No link has been invented in this workbook.</div>
+<table><tr><th>Conversation / evidence</th><th>Public share link</th></tr><tr><td>Prompt-to-product ideation and dataset analysis</td><td>TO BE ADDED BY TEAM</td></tr><tr><td>Backend validation and feature iteration</td><td>TO BE ADDED BY TEAM</td></tr><tr><td>UI / demo-video direction</td><td>TO BE ADDED BY TEAM</td></tr></table>
+<div class="footer">Campus Chakra · Prompt Workbook · prepared for Srujana 2026</div></body></html>

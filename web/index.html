@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Chakra | Predictive Circular-Resource Grid - Chanakya University</title>
+  <meta name="description" content="AI-driven Predictive Circular-Resource Grid for multi-building campus resource telemetry, edge smart-bin sorting, and 12-hour proactive demand forecasting.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+  <!-- ================= ANIMATED LOGO VIDEO INTRO SPLASH ================= -->
+  <div class="splash-screen" id="splashScreen" aria-label="Campus Chakra opening logo reveal">
+    <video 
+      id="splashVideo" 
+      src="logo_reveal.mp4" 
+      autoplay 
+      muted 
+      playsinline 
+      preload="auto" 
+      class="splash-video-el"
+      poster="frame0.jpg"
+    ></video>
+    
+    <!-- Top-Right Small Clean Enter / Skip Button -->
+    <div class="splash-top-bar">
+      <button class="splash-enter-btn" id="btnEnterDashboard" type="button" aria-label="Enter Campus Chakra Dashboard">
+        <span>Enter Dashboard</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Bottom Subtle Brand Pill -->
+    <div class="splash-bottom-bar">
+      <div class="splash-brand-pill">
+        <span class="splash-pulse-dot"></span>
+        <span>CAMPUS CHAKRA · CHANAKYA UNIVERSITY</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PURE STRUCTURED GLASSMORPHISM HERO ================= -->
+    <!-- ================= SKYPROMPT HERO ================= -->
+  <section class="sky-viewport" id="heroSection">
+    <div class="sky-frame">
+      
+      <!-- Background Plate Image -->
+      <img 
+        src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/dc4ac5c7-4eee-48ab-814c-cbba3c9fd1b7.jpg" 
+        alt="Floating grassy island with waterfall in bright blue sky" 
+        class="sky-plate"
+      >
+
+      <!-- Looping Motion Video (Waterfall, Butterflies, Drifting Clouds) -->
+      <video 
+        src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/81764d30-8120-4ab5-8491-4dd852b82496.mp4" 
+        autoplay 
+        muted 
+        loop 
+        playsinline 
+        class="sky-video"
+      ></video>
+
+      <!-- UI Overlay -->
+      <div class="sky-ui">
+        
+        <!-- Navigation -->
+        <header class="sky-nav">
+          <div class="nav-logo" aria-label="Skyprompt home">
+            <!-- White six-petal flower -->
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+              <path d="M22 6C20 12 14 18 8 20C14 22 20 28 22 34C24 28 30 22 36 20C30 18 24 12 22 6Z" fill="white" />
+              <circle cx="22" cy="22" r="5" fill="#f6f03b" />
+            </svg>
+          </div>
+
+          <nav class="nav-links">
+            <a href="#dashboardLiveGrid" class="nav-link" onclick="document.getElementById('navTabOverview').click(); document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'}); return false;">Overview</a>
+            <span class="nav-dot">·</span>
+            <a href="#dashboardLiveGrid" class="nav-link" onclick="document.getElementById('navTabEdge').click(); document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'}); return false;">Edge Smart-Bin</a>
+            <span class="nav-dot">·</span>
+            <a href="#dashboardLiveGrid" class="nav-link" onclick="document.getElementById('navTabForecast').click(); document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'}); return false;">12h Forecast</a>
+            <span class="nav-dot">·</span>
+            <a href="#dashboardLiveGrid" class="nav-link" onclick="document.getElementById('navTabAnomalies').click(); document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'}); return false;">Anomaly Sentinel</a>
+            <span class="nav-dot">·</span>
+            <a href="#dashboardLiveGrid" class="nav-link" onclick="document.getElementById('navTabIncentives').click(); document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'}); return false;">Eco-Credits</a>
+            <span class="nav-dot">·</span>
+            <a href="#dashboardLiveGrid" class="nav-link" onclick="document.getElementById('navTabEvaluate').click(); document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'}); return false;">Live Benchmark</a>
+          </nav>
+
+          <div class="nav-right-actions">
+            <!-- AI Copilot Trigger -->
+            <button class="nav-x-btn btn-copilot-trigger" id="btnHeroOpenCopilot" title="Open AI Facilities Copilot">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </button>
+            <button class="nav-pill-btn" onclick="document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'});">Live Platform</button>
+          </div>
+        </header>
+
+        <!-- Headline Block -->
+        
+        <!-- Highlighter "Campus Chakra" -->
+        <div class="highlighter-wrap hl-begin" id="hlBegin" style="left:calc(570 * var(--u)); width:calc(300 * var(--u));">
+          <svg class="highlighter-svg" viewBox="0 0 300 44" preserveAspectRatio="none">
+            <path d="M 4 14 Q 75 6, 150 8 Q 240 9, 292 5 Q 296 18, 290 32 Q 200 36, 110 33 Q 32 31, 4 22 Z" fill="#f6f03b" />
+          </svg>
+          <span class="highlighter-text" style="font-size:calc(34 * var(--u));">CAMPUS CHAKRA</span>
+        </div>
+
+        <!-- Headline "Circular-Resource Grid" -->
+        <h1 class="sky-headline" id="skyHeadline">Circular-Resource Grid</h1>
+
+        <!-- Highlighter "Chanakya University" -->
+        <div class="highlighter-wrap hl-no-cost" id="hlNoCost" style="left:calc(530 * var(--u)); width:calc(380 * var(--u));">
+          <svg class="highlighter-svg" viewBox="0 0 380 45" preserveAspectRatio="none">
+            <path d="M 5 15 Q 95 7, 190 9 Q 295 10, 372 6 Q 376 19, 370 34 Q 260 38, 140 35 Q 36 33, 5 23 Z" fill="#f6f03b" />
+          </svg>
+          <span class="highlighter-text" style="font-size:calc(31 * var(--u));">CHANAKYA UNIVERSITY</span>
+        </div>
+
+        <!-- Subline -->
+        <p class="sky-subline" id="skySubline">
+          Autonomous IoT telemetry, sub-2ms edge waste sorting, and proactive 12-hour<br>
+          solar & water dispatch across all 8 campus facilities.
+        </p>
+
+        <!-- 4 Tilted Art Cards -->
+        <div class="cards-fan">
+          
+          <!-- Card 1: Cottage on sea cliff (-12 deg) -->
+          <div class="art-card card-1" title="Cottage on a sea cliff" onclick="document.getElementById('navTabOverview').click(); document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'});">
+            <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/37b0e4f8-9780-409b-9aa4-f855a9a4ef24.webp" alt="Cottage on a sea cliff">
+          </div>
+
+          <!-- Card 2: Orange kitten in beanie (-4 deg) -->
+          <div class="art-card card-2" title="Orange kitten in a blue beanie and scarf" onclick="document.getElementById('navTabEdge').click(); document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'});">
+            <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/02be94e0-6903-4edd-b5ec-a10eb62d166e.webp" alt="Orange kitten in beanie">
+          </div>
+
+          <!-- Card 3: Smiling succulent (4 deg) -->
+          <div class="art-card card-3" title="Smiling succulent in a terracotta pot" onclick="document.getElementById('navTabForecast').click(); document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'});">
+            <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/73e9f810-8b43-4548-a4b1-830b1b99cdfd.webp" alt="Smiling succulent">
+          </div>
+
+          <!-- Card 4: Golden retriever cowboy (12 deg) -->
+          <div class="art-card card-4" title="Golden retriever in a cowboy hat and red bandana" onclick="document.getElementById('navTabAnomalies').click(); document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'});">
+            <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/fde79b9a-ae7c-439f-9a96-f727754defb7.webp" alt="Golden retriever cowboy">
+          </div>
+        </div>
+
+        <!-- Labels & Rough Yellow Curving Arrows -->
+        
+        <!-- Label 1: Starts from Zero! (-11 deg) -->
+        <div class="highlighter-wrap label-zero">
+          <svg class="highlighter-svg" viewBox="0 0 160 38" preserveAspectRatio="none">
+            <path d="M 4 12 Q 45 6, 90 7 Q 138 8, 156 5 Q 158 16, 154 28 Q 105 32, 50 30 Q 14 28, 4 18 Z" fill="#f6f03b" />
+          </svg>
+          <span class="highlighter-text">Sub-2ms Edge AI!</span>
+        </div>
+
+        <!-- Hand-drawn yellow arrow curving into first card -->
+        <svg class="arrow-zero" viewBox="0 0 48 38" fill="none">
+          <path d="M 6 8 C 22 4, 38 14, 42 28" stroke="#f6f03b" stroke-width="4.5" stroke-linecap="round" />
+          <path d="M 33 26 L 42 29 L 44 20" stroke="#f6f03b" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+        <!-- Label 2: Real Client Results (-6 deg) -->
+        <div class="highlighter-wrap label-results">
+          <svg class="highlighter-svg" viewBox="0 0 170 38" preserveAspectRatio="none">
+            <path d="M 4 12 Q 50 6, 95 7 Q 145 8, 166 5 Q 168 16, 164 28 Q 112 32, 55 30 Q 15 28, 4 18 Z" fill="#f6f03b" />
+          </svg>
+          <span class="highlighter-text">8 Live Nodes · 99.4%</span>
+        </div>
+
+        <!-- Arrow curling up to dog card -->
+        <svg class="arrow-results-up" viewBox="0 0 42 46" fill="none">
+          <path d="M 28 38 C 12 28, 14 12, 24 8" stroke="#f6f03b" stroke-width="4.5" stroke-linecap="round" />
+          <path d="M 16 12 L 25 7 L 26 18" stroke="#f6f03b" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+        <!-- Double arrow curling down -->
+        <svg class="arrow-results-down" viewBox="0 0 36 42" fill="none">
+          <path d="M 10 6 C 22 14, 20 28, 14 36" stroke="#f6f03b" stroke-width="4.5" stroke-linecap="round" />
+          <path d="M 8 28 L 13 36 L 22 34" stroke="#f6f03b" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+        <!-- Call to action, seated on the island -->
+        <div class="island-cta">
+          <!-- Highlighter "Zero Cost" -->
+          <div class="highlighter-wrap hl-zero-cost">
+            <svg class="highlighter-svg" viewBox="0 0 96 25" preserveAspectRatio="none">
+              <path d="M 3 8 Q 28 4, 52 5 Q 82 6, 93 4 Q 94 11, 92 20 Q 64 22, 32 21 Q 9 19, 3 13 Z" fill="#f6f03b" />
+            </svg>
+            <span class="highlighter-text">Live Telemetry</span>
+          </div>
+
+          <!-- White pill "Begin the Journey" -->
+          <button class="btn-island-journey" onclick="document.getElementById('dashboardLiveGrid').scrollIntoView({behavior:'smooth'});">Explore Operational Grid</button>
+
+          <!-- Note -->
+          <p class="cta-note">Chanakya University Global Campus · Devanahalli, Bengaluru</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Operational Grid Anchor -->
+  <div class="dashboard-scroll-anchor" id="dashboardLiveGrid"></div>
+
+  <!-- Dashboard Live Section Header -->
+  <div class="dashboard-live-banner">
+    <div class="dashboard-live-banner-content">
+      <div class="dashboard-live-indicator">
+        <span class="pulse-dot"></span>
+        <span>TELEMETRY LIVE STREAM · 8 CAMPUS NODES</span>
+      </div>
+      <h2 class="dashboard-live-title">Live Operational Telemetry & Analytics Grid</h2>
+      <p class="dashboard-live-subtitle">Real-time meter ingress, multi-horizon demand forecasting, edge inference benchmarks, and eco-credits leaderboard.</p>
+    </div>
+  </div>
+
+
+  <!-- Navigation Tabs -->
+  <nav class="sub-nav">
+    <button class="nav-tab active" data-tab="tab-overview" id="navTabOverview">
+      <i data-lucide="layout-dashboard" class="tab-icon-svg"></i> Campus Overview
+    </button>
+    <button class="nav-tab" data-tab="tab-edge" id="navTabEdge">
+      <i data-lucide="cpu" class="tab-icon-svg"></i> Edge Smart-Bin (<span id="lblAccTag">86.4% Acc</span>)
+    </button>
+    <button class="nav-tab" data-tab="tab-forecast" id="navTabForecast">
+      <i data-lucide="trending-up" class="tab-icon-svg"></i> 6h/12h Demand Forecast
+    </button>
+    <button class="nav-tab" data-tab="tab-anomalies" id="navTabAnomalies">
+      <i data-lucide="alert-triangle" class="tab-icon-svg"></i> Root-Cause & Actions (<span id="lblAnomCount">0</span>)
+    </button>
+    <button class="nav-tab" data-tab="tab-incentives" id="navTabIncentives">
+      <i data-lucide="award" class="tab-icon-svg"></i> Eco-Credits Leaderboard
+    </button>
+    <button class="nav-tab" data-tab="tab-integrity" id="navTabIntegrity">
+      <i data-lucide="shield-check" class="tab-icon-svg"></i> Data Integrity & Sync
+    </button>
+    <button class="nav-tab" data-tab="tab-evaluate" id="navTabEvaluate">
+      <i data-lucide="flask-conical" class="tab-icon-svg"></i> Live Benchmark Testing
+    </button>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    
+    <!-- ================= TAB 1: OVERVIEW ================= -->
+    <section id="tab-overview" class="tab-panel active">
+      <!-- KPI Metric Row -->
+      <div class="kpi-grid">
+        <div class="kpi-card glass-panel">
+          <div class="kpi-header">
+            <span class="kpi-label">Active Power Grid Draw</span>
+            <span class="kpi-badge">kWh</span>
+          </div>
+          <div class="kpi-value" id="kpiElec">--</div>
+          <div class="kpi-sub" id="kpiElecSub">Tariff ₹8.00/kWh · 0.70 kg CO₂/kWh</div>
+        </div>
+
+        <div class="kpi-card glass-panel">
+          <div class="kpi-header">
+            <span class="kpi-label">Solar PV Generation</span>
+            <span class="kpi-badge solar-badge">Rooftop Clean</span>
+          </div>
+          <div class="kpi-value solar-val" id="kpiSolar">--</div>
+          <div class="kpi-sub" id="kpiSolarSub">60%+ campus peak demand target</div>
+        </div>
+
+        <div class="kpi-card glass-panel">
+          <div class="kpi-header">
+            <span class="kpi-label">Water Consumption</span>
+            <span class="kpi-badge">kL</span>
+          </div>
+          <div class="kpi-value" id="kpiWater">--</div>
+          <div class="kpi-sub" id="kpiWaterSub">Pumping load 0.85 kWh / kL</div>
+        </div>
+
+        <div class="kpi-card glass-panel">
+          <div class="kpi-header">
+            <span class="kpi-label">Circular Diversion</span>
+            <span class="kpi-badge eco-badge">Target >90%</span>
+          </div>
+          <div class="kpi-value eco-val" id="kpiDiversion">--</div>
+          <div class="kpi-sub" id="kpiWasteSub">Compost + Certified Recyclers</div>
+        </div>
+
+        <div class="kpi-card glass-panel">
+          <div class="kpi-header">
+            <span class="kpi-label">Net Carbon Footprint</span>
+            <span class="kpi-badge danger-badge">Avoided Clean</span>
+          </div>
+          <div class="kpi-value" id="kpiCo2">--</div>
+          <div class="kpi-sub" id="kpiCo2Avoided">-- t CO₂ Offset by Solar</div>
+        </div>
+      </div>
+
+      <!-- Campus Map & Telemetry Explorer -->
+      <div class="overview-grid">
+        <!-- Building Cards Section -->
+        <div class="glass-panel buildings-container">
+          <div class="panel-header">
+            <h3>Chanakya University Multi-Building Micro-Grid</h3>
+            <span class="tag-status">8 Monitored Nodes</span>
+          </div>
+          <div class="buildings-grid" id="buildingsGrid">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Trend Graph Section -->
+        <div class="glass-panel telemetry-container">
+          <div class="panel-header">
+            <div class="chart-titles">
+              <h3 id="chartTitle">Campus-Wide Consumption & Solar Dynamics</h3>
+              <p class="chart-subtitle">120-Day Ingested & Fused Telemetry Stream</p>
+            </div>
+            <div class="chart-actions">
+              <select id="selBuildingFilter" class="form-select">
+                <option value="ALL">All Buildings (Aggregated)</option>
+              </select>
+              <select id="selMetricFilter" class="form-select">
+                <option value="elec">Electricity & Solar (kWh)</option>
+                <option value="water">Water Draw (Litres)</option>
+                <option value="waste">Circular Waste vs Landfill (kg)</option>
+              </select>
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="overviewChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 2: EDGE CLASSIFIER ================= -->
+    <section id="tab-edge" class="tab-panel">
+      <div class="edge-layout">
+        <div class="edge-left glass-panel">
+          <div class="panel-header">
+            <div>
+              <h3>Real-Time Smart-Bin Edge Classifier</h3>
+              <p class="chart-subtitle">Constraint: Multi-modal sensor fusion, >85% target accuracy, &lt;2s latency on edge MCU</p>
+            </div>
+            <span class="pill pill-success" id="lblEdgePerf">Accuracy: 86.4% | ~0.15ms / event</span>
+          </div>
+
+          <!-- Live Event Simulation Controller -->
+          <div class="edge-stream-box">
+            <div class="stream-toolbar">
+              <div class="stream-controls">
+                <button class="btn btn-primary btn-sm" id="btnToggleStream">▶ Start Live Bin Feed</button>
+                <button class="btn btn-outline btn-sm" id="btnStepStream">⏭ Single Step</button>
+                <span class="stream-speed-label">Speed:</span>
+                <select id="selStreamSpeed" class="form-select form-select-sm">
+                  <option value="1200">1x (1.2s)</option>
+                  <option value="500" selected>2x (0.5s)</option>
+                  <option value="150">5x (Fast)</option>
+                </select>
+              </div>
+              <div class="edge-stat">
+                Events Streamed: <strong id="lblStreamCount">0</strong>
+              </div>
+            </div>
+
+            <!-- Current Active Event Display -->
+            <div class="current-event-card" id="currentEventCard">
+              <div class="event-hero">
+                <div class="event-icon" id="eventMaterialIcon">📦</div>
+                <div class="event-main-info">
+                  <div class="event-title" id="eventPredLabel">Waiting for waste deposit...</div>
+                  <div class="event-route" id="eventRouteLabel">Autonomous Circular Route: --</div>
+                </div>
+                <div class="event-meta">
+                  <div class="event-badge" id="eventConfidence">Conf: --%</div>
+                  <div class="event-latency" id="eventLatency">MCU Latency: -- ms</div>
+                </div>
+              </div>
+
+              <!-- Sensor Gauges Matrix -->
+              <div class="sensor-gauges">
+                <div class="gauge-item">
+                  <span class="gauge-name">Load Cell</span>
+                  <div class="gauge-bar"><div class="gauge-fill" id="gWeight"></div></div>
+                  <span class="gauge-val" id="valWeight">-- g</span>
+                </div>
+                <div class="gauge-item">
+                  <span class="gauge-name">Moisture Probe</span>
+                  <div class="gauge-bar"><div class="gauge-fill" id="gMoisture"></div></div>
+                  <span class="gauge-val" id="valMoisture">-- %</span>
+                </div>
+                <div class="gauge-item">
+                  <span class="gauge-name">Inductive Metal</span>
+                  <div class="gauge-bar"><div class="gauge-fill" id="gMetal"></div></div>
+                  <span class="gauge-val" id="valMetal">--</span>
+                </div>
+                <div class="gauge-item">
+                  <span class="gauge-name">Photodiode (Transp)</span>
+                  <div class="gauge-bar"><div class="gauge-fill" id="gTransp"></div></div>
+                  <span class="gauge-val" id="valTransp">--</span>
+                </div>
+                <div class="gauge-item">
+                  <span class="gauge-name">Acoustic Hardness</span>
+                  <div class="gauge-bar"><div class="gauge-fill" id="gAcoustic"></div></div>
+                  <span class="gauge-val" id="valAcoustic">--</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Stream Table -->
+            <div class="recent-events-table-wrapper">
+              <table class="table-compact">
+                <thead>
+                  <tr>
+                    <th>Event ID</th>
+                    <th>Bin / Building</th>
+                    <th>Sensors [W/M/Met/Opt/Ac]</th>
+                    <th>Classification</th>
+                    <th>Conf</th>
+                    <th>Routing Dest</th>
+                  </tr>
+                </thead>
+                <tbody id="tblRecentEvents">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edge Model Architecture & Benchmark Metrics -->
+        <div class="edge-right glass-panel">
+          <div class="panel-header">
+            <h3>Edge Hardware & Validation</h3>
+          </div>
+          
+          <div class="edge-specs-card">
+            <h4>BOM Budget (Constraint: &lt;₹15,000 / Building)</h4>
+            <ul class="spec-list">
+              <li><strong>ESP32-S3 Dual-Core SoC:</strong> ₹650</li>
+              <li><strong>5-Sensor Fusion Cluster:</strong> ₹3,850 (HX711 load cell, soil moisture dielectric, inductive proximity, photodiode, piezo vibration)</li>
+              <li><strong>Energy CT Clamps & Pulse Water Meter:</strong> ₹4,200</li>
+              <li><strong>Raspberry Pi Zero 2W Gateway:</strong> ₹2,800</li>
+              <li><strong>Solar Inverter RS-485 Modbus Adapter:</strong> ₹1,200</li>
+              <li><strong>Local SD Buffer & Enclosure:</strong> ₹1,500</li>
+              <li class="spec-total"><strong>Total Hardware BOM: ₹14,200 / building</strong> (Fits budget envelope)</li>
+            </ul>
+          </div>
+
+          <div class="confusion-matrix-box">
+            <h4>5-Fold Stratified Cross-Validation</h4>
+            <div class="metric-row">
+              <span class="metric-key">Full Ensemble Accuracy:</span>
+              <strong class="text-success" id="lblFullAcc">86.4%</strong>
+            </div>
+            <div class="metric-row">
+              <span class="metric-key">Compact Micro-Forest (JSON):</span>
+              <strong class="text-accent" id="lblEdgeAcc">85.6%</strong>
+            </div>
+            <div class="metric-row">
+              <span class="metric-key">Inference Time (Edge):</span>
+              <strong id="lblEdgeTime">0.18 ms (Target &lt;2000 ms)</strong>
+            </div>
+            <div class="metric-row">
+              <span class="metric-key">RAM Footprint:</span>
+              <strong>~42 KB (Runs in MCU SRAM)</strong>
+            </div>
+            <div class="confusion-canvas-wrap mt-2">
+              <canvas id="confusionChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 3: FORECASTING ================= -->
+    <section id="tab-forecast" class="tab-panel">
+      <div class="forecast-layout">
+        <div class="glass-panel forecast-main">
+          <div class="panel-header">
+            <div>
+              <h3>Short-Horizon Demand & Spike Forecasting (t+6h, t+12h)</h3>
+              <p class="chart-subtitle">Constraint: Predict surges 6-12h ahead; trade off compute vs accuracy on edge</p>
+            </div>
+            <div class="forecast-selectors">
+              <select id="selFcBuilding" class="form-select">
+                <!-- Dynamically filled with buildings -->
+              </select>
+              <select id="selFcTarget" class="form-select">
+                <option value="electricity_kwh">Electricity Demand (kWh)</option>
+                <option value="water_litres">Water Consumption (L)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Forecast Canvas -->
+          <div class="chart-wrapper forecast-chart-wrapper">
+            <canvas id="forecastChart"></canvas>
+          </div>
+
+          <!-- Spike Warnings Banner -->
+          <div class="spike-alert-panel" id="spikeAlertPanel">
+            <!-- Dynamic Spike Alert Cards -->
+          </div>
+        </div>
+
+        <!-- Model Justification Card -->
+        <div class="glass-panel forecast-side">
+          <div class="panel-header">
+            <h3>Accuracy vs Compute Trade-Off</h3>
+          </div>
+          <p class="text-muted small">
+            Evaluation on strict 21-day chronological holdout across all 8 campus buildings:
+          </p>
+          <div class="tradeoff-table-wrap">
+            <table class="table-compact">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>WMAPE</th>
+                  <th>Spike F1</th>
+                  <th>Inference</th>
+                  <th>Size</th>
+                </tr>
+              </thead>
+              <tbody id="tblTradeoff">
+                <!-- Populated via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tradeoff-justification">
+            <h4>Edge Justification Argument</h4>
+            <p>
+              While <em>Seasonal-Naive</em> requires 0 KB compute, its error rate is high (~32% WMAPE) and it fails to anticipate scheduled exams, hackathons, or weather swings.
+            </p>
+            <p>
+              <strong>Chosen: LightGBM Edge Trees</strong> achieves <strong>14.2% WMAPE</strong> and <strong>0.89 Spike F1</strong> at only <strong>18 µs</strong> latency and <strong>~120 KB</strong> memory footprint—meaning a single Raspberry Pi Zero edge gateway can forecast the entire campus grid in less than 2 milliseconds.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 4: ROOT-CAUSE ANOMALIES ================= -->
+    <section id="tab-anomalies" class="tab-panel">
+      <div class="glass-panel">
+        <div class="panel-header">
+          <div>
+            <h3>Explainable Root-Cause Attribution & Ranked Action Prescriptions</h3>
+            <p class="chart-subtitle">Constraint: Move beyond dashboards; attribute anomalies to shift/event/leak and justify why</p>
+          </div>
+          <div class="anomaly-filters">
+            <select id="selAnomBuilding" class="form-select">
+              <option value="ALL">All Buildings</option>
+            </select>
+            <select id="selAnomCause" class="form-select">
+              <option value="ALL">All Probable Causes</option>
+              <option value="leak">Plumbing Leaks</option>
+              <option value="sensor_fault">Sensor / Meter Faults</option>
+              <option value="equipment_failure">Equipment Breakdowns (Composter/Inverter)</option>
+              <option value="behaviour">Occupant Behaviour (AC/Lights left ON)</option>
+              <option value="event">Campus Events & Surges</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Field Note Verification Banner -->
+        <div class="note-ground-truth-banner">
+          <div class="gt-icon"><i data-lucide="check-circle-2"></i></div>
+          <div class="gt-content">
+            <strong>Ground-Truth Operator Field Log Validation:</strong>
+            <span id="lblGtRecall">Verified 100% of 13 recorded incidents detected independently by telemetry</span>
+            (including the Girls Hostel pipe leak, Food Court alumni rush, Boys Hostel composter burnout, and Library holiday lighting waste).
+          </div>
+        </div>
+
+        <!-- Anomalies Cards Grid -->
+        <div class="anomalies-list" id="anomaliesList">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 5: ECO-CREDITS LEADERBOARD ================= -->
+    <section id="tab-incentives" class="tab-panel">
+      <div class="glass-panel">
+        <div class="panel-header">
+          <div>
+            <h3>Occupant Behavioural & Economic Incentive Loop</h3>
+            <p class="chart-subtitle">Constraint: Fair per-capita baseline gamification; anti-gaming controls; impact measurement</p>
+          </div>
+          <div class="leaderboard-meta">
+            <span class="pill pill-accent">Cycle: Semester Week 12</span>
+          </div>
+        </div>
+
+        <div class="incentive-overview-grid">
+          <div class="incentive-rule-box">
+            <h4>Closed-Loop Credit Formula</h4>
+            <p class="small">
+              Each building is judged <strong>strictly against its own 4-week weather & occupancy-normalised baseline</strong> (Hostels are never compared unfairly against Labs):
+            </p>
+            <div class="formula-box">
+              <code>Credits = 40% ΔElec + 30% ΔWater + 30% ΔDiversion + 20 Bonus (Contamination &lt; 10%)</code>
+            </div>
+            <ul class="rule-bullets small mt-2">
+              <li><strong>Anti-Gaming Control:</strong> Daily turnstile footfall prevents hostel wardens or students artificially turning off ventilation during vacations to claim free credits.</li>
+              <li><strong>Impact Proof (Diff-in-Diff):</strong> Normalized intensity dropped <strong>18.4%</strong> in participating hostel wings over the 120-day semester benchmark.</li>
+            </ul>
+          </div>
+
+          <div class="incentive-ranks-box">
+            <h4>Weekly Building Standings</h4>
+            <div class="table-wrap">
+              <table class="table-compact">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Building</th>
+                    <th>Δ Elec</th>
+                    <th>Δ Water</th>
+                    <th>Contam %</th>
+                    <th>Eco-Credits</th>
+                    <th>Earned Badges</th>
+                  </tr>
+                </thead>
+                <tbody id="tblLeaderboard">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 6: DATA INTEGRITY & OFFLINE ================= -->
+    <section id="tab-integrity" class="tab-panel">
+      <div class="integrity-layout">
+        <!-- Interactive Gateway Simulator -->
+        <div class="glass-panel sim-box">
+          <div class="panel-header">
+            <div>
+              <h3>Intermittent Connectivity & Gateway Buffer Reconciler</h3>
+              <p class="chart-subtitle">Constraint: Maintain integrity during network cutoffs; queue at edge; merge without dashboard corruption</p>
+            </div>
+          </div>
+
+          <div class="sim-controls-card">
+            <h4>Interactive Network Disconnect Simulation</h4>
+            <p class="small text-muted">
+              Disconnect an edge building gateway, watch data buffer locally on simulated SD storage, and flush upon reconnection:
+            </p>
+
+            <div class="sim-actions-row">
+              <select id="selSimBuilding" class="form-select">
+                <option value="B05">Boys Hostel (B05) Gateway</option>
+                <option value="B07">Food Court (B07) Gateway</option>
+                <option value="B04">Innovation Centre (B04) Gateway</option>
+              </select>
+              <button class="btn btn-danger btn-sm" id="btnDisconnectSim">Cut Network Uplink</button>
+              <button class="btn btn-success btn-sm" id="btnReconnectSim" disabled>Restore & Flush Buffer</button>
+              <button class="btn btn-outline btn-sm" id="btnResetSim">Reset Sim</button>
+            </div>
+
+            <div class="sim-status-display" id="simStatusDisplay">
+              <div class="sim-metric">Gateway Status: <strong id="simStatusText" class="text-success">Connected (Live Streaming)</strong></div>
+              <div class="sim-metric">Edge Buffer Queue: <strong id="simQueueCount">0 records</strong></div>
+              <div class="sim-metric">Sync Protocol: <strong>Idempotent Key (BuildingID, Timestamp, Seq)</strong></div>
+            </div>
+
+            <div class="sim-logs" id="simLogs">
+              <div class="log-entry">[00:00:00] All 8 building telemetry streams synchronized and active.</div>
+            </div>
+          </div>
+
+          <!-- Dataset Telemetry Integrity Summary -->
+          <div class="dataset-audit-card mt-3">
+            <h4>Dataset Field Noise Ingestion Audit</h4>
+            <div class="audit-stats-grid" id="auditStatsGrid">
+              <!-- Filled via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Discrepancy & Aliases Proof -->
+        <div class="glass-panel integrity-proof">
+          <div class="panel-header">
+            <h3>Operator Alias & Multi-Unit Normalization</h3>
+          </div>
+          <p class="small text-muted">
+            The system autonomously resolves informal nicknames and mixed unit measurements from <code>manual_logs.csv</code>:
+          </p>
+          <div class="alias-table-wrap">
+            <table class="table-compact">
+              <thead>
+                <tr>
+                  <th>Field Log String</th>
+                  <th>Resolved ID</th>
+                  <th>Method</th>
+                </tr>
+              </thead>
+              <tbody id="tblAliases">
+                <!-- Filled via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <h4 class="mt-3">Tri-Source Discrepancy Reconciliation</h4>
+          <p class="small text-muted">
+            When hourly meters, daily BMS summaries, and custodial manual logs disagree by >25%, the system flags conflicts and applies confidence weighting:
+          </p>
+          <div class="conflict-table-wrap">
+            <table class="table-compact">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Bld</th>
+                  <th>Hourly</th>
+                  <th>Daily BMS</th>
+                  <th>Manual</th>
+                  <th>Fused Value</th>
+                </tr>
+              </thead>
+              <tbody id="tblConflicts">
+                <!-- Filled via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 7: LIVE BENCHMARK EVALUATOR ================= -->
+    <section id="tab-evaluate" class="tab-panel">
+      <div class="glass-panel">
+        <div class="panel-header">
+          <div>
+            <h3>Live Test Dataset Evaluation & Benchmark Scoring</h3>
+            <p class="chart-subtitle">For Evaluators: Upload unlabelled or ground-truth CSV/XLSX to test system accuracy in real-time</p>
+          </div>
+        </div>
+
+        <div class="eval-grid">
+          <!-- Waste Evaluator -->
+          <div class="eval-card glass-panel-nested">
+            <h4>1. Smart-Bin Disposal Stream</h4>
+            <p class="small text-muted">Upload <code>waste_events_test.csv</code> or fresh evaluation data:</p>
+            <div class="upload-zone" id="dropZoneWaste">
+              <input type="file" id="fileWaste" accept=".csv,.xlsx" style="display:none">
+              <button class="btn btn-outline btn-sm" onclick="document.getElementById('fileWaste').click()">Select Waste File</button>
+              <span class="file-name" id="nameFileWaste">No file chosen</span>
+            </div>
+            <button class="btn btn-primary btn-sm mt-2" id="btnRunEvalWaste">Run Waste Classification</button>
+            <a href="/api/predictions.csv" class="btn btn-outline btn-sm mt-2" download>Download Test Predictions CSV</a>
+
+            <div class="eval-result-box" id="resWasteBox">
+              <div class="eval-placeholder">Evaluation results will appear here...</div>
+            </div>
+          </div>
+
+          <!-- Hourly Evaluator -->
+          <div class="eval-card glass-panel-nested">
+            <h4>2. Hourly Telemetry Grid</h4>
+            <p class="small text-muted">Upload new hourly meter telemetry to evaluate 12h forecast & integrity:</p>
+            <div class="upload-zone" id="dropZoneHourly">
+              <input type="file" id="fileHourly" accept=".csv,.xlsx" style="display:none">
+              <button class="btn btn-outline btn-sm" onclick="document.getElementById('fileHourly').click()">Select Hourly File</button>
+              <span class="file-name" id="nameFileHourly">No file chosen</span>
+            </div>
+            <button class="btn btn-primary btn-sm mt-2" id="btnRunEvalHourly">Process Telemetry</button>
+
+            <div class="eval-result-box" id="resHourlyBox">
+              <div class="eval-placeholder">Forecast backtest results will appear here...</div>
+            </div>
+          </div>
+
+          <!-- Scalability & Cost Proof -->
+          <div class="eval-card glass-panel-nested">
+            <h4>3. 3-to-30+ Building Scaling Proof</h4>
+            <ul class="spec-list small">
+              <li><strong>Zero Cloud Dependency:</strong> All core classification runs on edge micro-controllers (ESP32 / Pi Zero).</li>
+              <li><strong>Stateless Global Forecast Models:</strong> Single shared model family across building classes; adding Building #31 requires zero model retraining—only metadata onboarding.</li>
+              <li><strong>Bandwidth Efficient:</strong> Edge anomaly suppression reduces upstream telemetry packets by 92%.</li>
+              <li><strong>Cost Envelope:</strong> ₹14,200 / building vs ₹80,000+ commercial BMS alternatives.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= COPILOT MODAL ================= -->
+    <!-- ================= COPILOT MODAL: RECREATED WITH PARTICLE TITLE & AURA FIELD ================= -->
+  <div class="modal-overlay" id="copilotModal">
+    <div class="modal-card copilot-glass-modal">
+      
+      <!-- Particle Title Dynamic Canvas Header -->
+      <div class="copilot-particle-header">
+        <div class="particle-glow-blob blob-emerald"></div>
+        <div class="particle-glow-blob blob-cyan"></div>
+        <div class="particle-glow-blob blob-amber"></div>
+        <canvas id="particleTitleCanvas" class="particle-title-canvas"></canvas>
+        <button class="copilot-close-btn" id="btnCloseCopilot" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="copilot-modal-body">
+        <!-- Agent Stack Info Chips -->
+        <div class="copilot-agents-pill-row">
+          <div class="agent-chip chip-nemotron">
+            <span class="chip-dot"></span>
+            <span>NVIDIA Nemotron 70B (Analyst)</span>
+          </div>
+          <div class="agent-chip chip-llama">
+            <span class="chip-dot"></span>
+            <span>Groq Llama 3.3 (Planner)</span>
+          </div>
+          <div class="agent-chip chip-gemini">
+            <span class="chip-dot"></span>
+            <span>Gemini 2.5 Flash (Verifier)</span>
+          </div>
+        </div>
+
+        <!-- Aura Field with Conic Turning Gradient & Soft-Blur Rewriting -->
+        <div class="aura-field" id="auraCopilotField">
+          <div class="aura-field__frame">
+            <span class="aura-field__aura" aria-hidden="true"></span>
+            <span class="aura-field__glow" aria-hidden="true"></span>
+            <div class="aura-field__surface">
+              <textarea 
+                id="txtCopilotQuery" 
+                class="aura-field__text" 
+                placeholder="Ask Campus Facilities: e.g. What caused the surge in Girls Hostel? or What protocol offsets peak 14:00 solar draw?"
+                rows="3"
+              ></textarea>
+              <div id="auraStreamingBox" class="aura-field__text" style="display:none;" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <div class="aura-field__tools" role="toolbar" aria-label="Writing and Audit Tools">
+            <button type="button" class="tool-btn" data-tool="proofread">
+              <span>✓</span> Proofread
+            </button>
+            <button type="button" class="tool-btn" data-tool="action-plan">
+              <span>⚡</span> Action Plan
+            </button>
+            <button type="button" class="tool-btn" data-tool="concise">
+              <span>≡</span> Concise
+            </button>
+            <button type="button" class="tool-btn" data-tool="water-audit">
+              <span>💧</span> Water Audit
+            </button>
+            <button type="button" class="tool-btn" data-tool="solar-dispatch">
+              <span>☀️</span> Solar Dispatch
+            </button>
+
+            <span class="aura-field__spacer"></span>
+
+            <button type="button" class="aura-field__undo" id="btnAuraUndo" title="Undo rewrite" aria-label="Undo rewrite">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 4L2.5 6.5 5 9M3 6.5h6.5a3.5 3.5 0 0 1 0 7H7" />
+              </svg>
+            </button>
+
+            <button type="button" class="btn-voice-pill" id="btnVoiceRecord" title="Voice Input">
+              <i data-lucide="mic" class="btn-icon"></i>
+              <span>Voice</span>
+            </button>
+
+            <button type="button" class="btn-aura-dispatch" id="btnAskCopilot">
+              <i data-lucide="send" class="btn-icon"></i>
+              <span>Dispatch Agents</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Multi-Agent Reasoning Trace -->
+        <div class="copilot-trace-container">
+          <div class="trace-header-row">
+            <div class="trace-title">
+              <i data-lucide="cpu" class="btn-icon"></i>
+              <span>Multi-Agent Reasoning Trace</span>
+            </div>
+            <span class="trace-badge" id="traceStatusBadge">Ready</span>
+          </div>
+          <div class="copilot-trace" id="copilotTrace">
+            <div class="trace-intro-text">
+              Type an inquiry above or click any AI tool (Action Plan, Water Audit, Solar Dispatch) to generate tailored facilities directives. Grounded across live building telemetry, weather, and anomaly records.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="motion.js"></script>
+</body>
+</html>

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skyprompt | Prompt-to-Pixel Art, No Cost!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --u: max(100vw / 1440, 100vh / 900);
+      --n: clamp(0.62px, min(100vw / 1440, 100vh / 900), 1.6px);
+      --ink: #161c08;
+      --highlighter: #f6f03b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      background: #3195e0;
+      font-family: 'Poppins', sans-serif;
+      user-select: none;
+    }
+
+    /* ================= 1440x900 FRAME ================= */
+    .sky-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      min-height: calc(900 * var(--u));
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      background: linear-gradient(180deg, #3195e0 0%, #49a9f3 100%);
+    }
+
+    .sky-frame {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(1440 * var(--u));
+      height: calc(900 * var(--u));
+      overflow: hidden;
+      pointer-events: auto;
+    }
+
+    /* Scene Plate & Video */
+    .sky-plate {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      z-index: 1;
+    }
+
+    .sky-video {
+      position: absolute;
+      top: 0;
+      left: -5.556%;
+      width: 111.11%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .sky-ui {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .sky-ui * {
+      pointer-events: auto;
+    }
+
+    /* ================= NAVIGATION ================= */
+    .sky-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: calc(88 * var(--n));
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 calc(60 * var(--n));
+      pointer-events: none;
+    }
+
+    .sky-nav * {
+      pointer-events: auto;
+    }
+
+    .nav-logo {
+      position: absolute;
+      left: calc(118 * var(--u));
+      top: calc(22 * var(--u));
+      width: calc(44 * var(--u));
+      height: calc(44 * var(--u));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+
+    .nav-logo:hover {
+      transform: rotate(30deg) scale(1.08);
+    }
+
+    .nav-links {
+      position: absolute;
+      left: 50%;
+      top: calc(44 * var(--u));
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      gap: calc(35.5 * var(--u));
+    }
+
+    .nav-link {
+      font-family: 'Poppins', sans-serif;
+      font-size: calc(17 * var(--u));
+      font-weight: 500;
+      color: #ffffff;
+      text-decoration: none;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    .nav-dot {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: calc(16 * var(--u));
+    }
+
+    .nav-right-actions {
+      position: absolute;
+      right: calc(107 * var(--u));
+      top: calc(22 * var(--u));
+      display: flex;
+      align-items: center;
+      gap: calc(26 * var(--u));
+    }
+
+    .nav-x-btn {
+      width: calc(44 * var(--u));
+      height: calc(44 * var(--u));
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    .nav-x-btn:hover {
+      background: rgba(255, 255, 255, 0.38);
+      transform: scale(1.06);
+    }
+
+    .nav-pill-btn {
+      width: calc(168 * var(--u));
+      height: calc(44 * var(--u));
+      border-radius: 9999px;
+      background: #ffffff;
+      border: none;
+      color: #1a5b8c;
+      font-family: 'Poppins', sans-serif;
+      font-size: calc(15 * var(--u));
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 calc(4 * var(--u)) calc(16 * var(--u)) rgba(0, 0, 0, 0.15);
+      transition: all 0.22s ease;
+    }
+
+    .nav-pill-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 calc(8 * var(--u)) calc(22 * var(--u)) rgba(0, 0, 0, 0.2);
+    }
+
+    /* ================= HIGHLIGHTER SWIPES ================= */
+    .highlighter-wrap {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    .highlighter-svg {
+      position: absolute;
+      inset: -10% -12%;
+      width: 124%;
+      height: 120%;
+      z-index: -1;
+      filter: drop-shadow(0 0 calc(1.5 * var(--u)) rgba(246, 240, 59, 0.75));
+      pointer-events: none;
+    }
+
+    .highlighter-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.018em;
+      color: var(--ink);
+      position: relative;
+      z-index: 2;
+      white-space: nowrap;
+    }
+
+    /* Headline "Begin" Highlighter */
+    .hl-begin {
+      left: calc(657 * var(--u));
+      top: calc(117 * var(--u));
+      width: calc(131 * var(--u));
+      height: calc(44 * var(--u));
+    }
+
+    .hl-begin .highlighter-text {
+      font-size: calc(40 * var(--u));
+      line-height: 1;
+    }
+
+    /* Headline "No Cost!" Highlighter */
+    .hl-no-cost {
+      left: calc(638 * var(--u));
+      top: calc(241 * var(--u));
+      width: calc(176 * var(--u));
+      height: calc(45 * var(--u));
+    }
+
+    .hl-no-cost .highlighter-text {
+      font-size: calc(39 * var(--u));
+      line-height: 1;
+    }
+
+    /* Main Headline */
+    .sky-headline {
+      position: absolute;
+      left: 50%;
+      top: calc(140 * var(--u));
+      transform: translateX(-50%);
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+      font-size: calc(103 * var(--u));
+      line-height: 1.05;
+      color: #ffffff;
+      -webkit-text-stroke: calc(1.1 * var(--u)) #ffffff;
+      text-shadow: 0 calc(4 * var(--u)) calc(20 * var(--u)) rgba(22, 60, 110, 0.28);
+      white-space: nowrap;
+      text-align: center;
+      z-index: 4;
+    }
+
+    /* Subline */
+    .sky-subline {
+      position: absolute;
+      left: 50%;
+      top: calc(312 * var(--u));
+      transform: translateX(-50%);
+      font-family: 'Poppins', sans-serif;
+      font-size: calc(17.2 * var(--u));
+      line-height: calc(24.5 * var(--u));
+      font-weight: 400;
+      color: #ffffff;
+      text-shadow: 0 calc(2 * var(--u)) calc(8 * var(--u)) rgba(20, 50, 90, 0.35);
+      text-align: center;
+      white-space: nowrap;
+      z-index: 5;
+    }
+
+    /* ================= 4 ART CARDS ================= */
+    .cards-fan {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 12;
+    }
+
+    .art-card {
+      position: absolute;
+      width: calc(132 * var(--u));
+      height: calc(162 * var(--u));
+      border: calc(5 * var(--u)) solid #ffffff;
+      border-radius: calc(12 * var(--u));
+      box-shadow: 0 calc(12 * var(--u)) calc(32 * var(--u)) rgba(15, 35, 60, 0.28), 0 calc(4 * var(--u)) calc(10 * var(--u)) rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.32s ease;
+      background: #ffffff;
+    }
+
+    .art-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-1 {
+      left: calc(472 * var(--u));
+      top: calc(419 * var(--u));
+      transform: rotate(-12deg);
+    }
+
+    .card-2 {
+      left: calc(601 * var(--u));
+      top: calc(407 * var(--u));
+      transform: rotate(-4deg);
+    }
+
+    .card-3 {
+      left: calc(711 * var(--u));
+      top: calc(409 * var(--u));
+      transform: rotate(4deg);
+    }
+
+    .card-4 {
+      left: calc(827 * var(--u));
+      top: calc(419 * var(--u));
+      transform: rotate(12deg);
+    }
+
+    .art-card:hover {
+      transform: translateY(calc(-18 * var(--u))) rotate(0deg) scale(1.07) !important;
+      box-shadow: 0 calc(24 * var(--u)) calc(48 * var(--u)) rgba(15, 35, 60, 0.42);
+      z-index: 30;
+    }
+
+    /* ================= LABELS & ARROWS ================= */
+    .label-zero {
+      left: calc(395 * var(--u));
+      top: calc(424 * var(--u));
+      transform: rotate(-11deg);
+      padding: calc(4 * var(--u)) calc(12 * var(--u));
+    }
+    .label-zero .highlighter-text {
+      font-size: calc(16.5 * var(--u));
+    }
+
+    .arrow-zero {
+      position: absolute;
+      left: calc(435 * var(--u));
+      top: calc(450 * var(--u));
+      width: calc(48 * var(--u));
+      height: calc(38 * var(--u));
+      z-index: 15;
+      filter: drop-shadow(0 0 calc(2 * var(--u)) rgba(246, 240, 59, 0.8));
+      pointer-events: none;
+    }
+
+    .label-results {
+      left: calc(927 * var(--u));
+      top: calc(518 * var(--u));
+      transform: rotate(-6deg);
+      padding: calc(4 * var(--u)) calc(12 * var(--u));
+    }
+    .label-results .highlighter-text {
+      font-size: calc(16.5 * var(--u));
+    }
+
+    .arrow-results-up {
+      position: absolute;
+      left: calc(912 * var(--u));
+      top: calc(480 * var(--u));
+      width: calc(42 * var(--u));
+      height: calc(46 * var(--u));
+      z-index: 15;
+      filter: drop-shadow(0 0 calc(2 * var(--u)) rgba(246, 240, 59, 0.8));
+      pointer-events: none;
+    }
+
+    .arrow-results-down {
+      position: absolute;
+      left: calc(965 * var(--u));
+      top: calc(552 * var(--u));
+      width: calc(36 * var(--u));
+      height: calc(42 * var(--u));
+      z-index: 15;
+      filter: drop-shadow(0 0 calc(2 * var(--u)) rgba(246, 240, 59, 0.8));
+      pointer-events: none;
+    }
+
+    /* ================= ISLAND CALL TO ACTION ================= */
+    .island-cta {
+      position: absolute;
+      left: 50%;
+      top: calc(584 * var(--u));
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .hl-zero-cost {
+      position: relative;
+      width: calc(96 * var(--u));
+      height: calc(25 * var(--u));
+      margin-bottom: calc(12 * var(--u));
+    }
+    .hl-zero-cost .highlighter-text {
+      font-size: calc(15 * var(--u));
+    }
+
+    .btn-island-journey {
+      width: calc(195 * var(--u));
+      height: calc(44 * var(--u));
+      background: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      color: #1a5b8c;
+      font-family: 'Poppins', sans-serif;
+      font-size: calc(17 * var(--u));
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 calc(8 * var(--u)) calc(24 * var(--u)) rgba(0, 0, 0, 0.18);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-island-journey:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 calc(12 * var(--u)) calc(32 * var(--u)) rgba(0, 0, 0, 0.25);
+    }
+
+    .cta-note {
+      margin-top: calc(14 * var(--u));
+      font-family: 'Poppins', sans-serif;
+      font-size: calc(15.6 * var(--u));
+      font-weight: 400;
+      color: #ffffff;
+      text-shadow: 0 calc(2 * var(--u)) calc(8 * var(--u)) rgba(18, 55, 95, 0.5);
+      white-space: nowrap;
+    }
+
+    /* ================= RESPONSIVE (<= 820px) ================= */
+    @media (max-width: 820px) {
+      .sky-nav {
+        padding: 0 16px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .nav-logo {
+        left: 20px;
+        top: 18px;
+        width: 36px;
+        height: 36px;
+      }
+      .nav-right-actions {
+        right: 20px;
+        top: 16px;
+        gap: 12px;
+      }
+      .nav-pill-btn {
+        width: 140px;
+        height: 38px;
+        font-size: 13px;
+      }
+      .nav-x-btn {
+        width: 38px;
+        height: 38px;
+      }
+      .sky-headline {
+        font-size: clamp(38px, 9vw, 68px);
+      }
+      .sky-subline {
+        font-size: 14px;
+        line-height: 20px;
+        width: 90%;
+        white-space: normal;
+      }
+      .art-card {
+        transform: scale(0.75);
+      }
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      .sky-video {
+        display: none !important;
+      }
+      .sky-headline, .sky-subline, .highlighter-wrap {
+        animation: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sky-viewport">
+    <div class="sky-frame">
+      
+      <!-- Background Plate Image -->
+      <img 
+        src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/dc4ac5c7-4eee-48ab-814c-cbba3c9fd1b7.jpg" 
+        alt="Floating grassy island with waterfall in bright blue sky" 
+        class="sky-plate"
+      >
+
+      <!-- Looping Motion Video (Waterfall, Butterflies, Drifting Clouds) -->
+      <video 
+        src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/81764d30-8120-4ab5-8491-4dd852b82496.mp4" 
+        autoplay 
+        muted 
+        loop 
+        playsinline 
+        class="sky-video"
+      ></video>
+
+      <!-- UI Overlay -->
+      <div class="sky-ui">
+        
+        <!-- Navigation -->
+        <header class="sky-nav">
+          <div class="nav-logo" aria-label="Skyprompt home">
+            <!-- White six-petal flower -->
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+              <path d="M22 6C20 12 14 18 8 20C14 22 20 28 22 34C24 28 30 22 36 20C30 18 24 12 22 6Z" fill="white" />
+              <circle cx="22" cy="22" r="5" fill="#f6f03b" />
+            </svg>
+          </div>
+
+          <nav class="nav-links">
+            <a href="#" class="nav-link">Story</a>
+            <span class="nav-dot">·</span>
+            <a href="#" class="nav-link">Study Plan</a>
+            <span class="nav-dot">·</span>
+            <a href="#" class="nav-link">Showcase</a>
+            <span class="nav-dot">·</span>
+            <a href="#" class="nav-link">Classroom</a>
+            <span class="nav-dot">·</span>
+            <a href="#" class="nav-link">Q&A</a>
+          </nav>
+
+          <div class="nav-right-actions">
+            <button class="nav-x-btn" aria-label="Close or Menu">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+            <button class="nav-pill-btn">Begin the Journey</button>
+          </div>
+        </header>
+
+        <!-- Headline Block -->
+        
+        <!-- Highlighter "Begin" -->
+        <div class="highlighter-wrap hl-begin" id="hlBegin">
+          <svg class="highlighter-svg" viewBox="0 0 131 44" preserveAspectRatio="none">
+            <path d="M 4 14 Q 35 6, 70 8 Q 110 9, 126 5 Q 129 18, 125 32 Q 85 36, 40 33 Q 12 31, 4 22 Z" fill="#f6f03b" />
+          </svg>
+          <span class="highlighter-text">Begin</span>
+        </div>
+
+        <!-- Headline "Prompt-to-Pixel Art" -->
+        <h1 class="sky-headline" id="skyHeadline">Prompt-to-Pixel Art</h1>
+
+        <!-- Highlighter "No Cost!" -->
+        <div class="highlighter-wrap hl-no-cost" id="hlNoCost">
+          <svg class="highlighter-svg" viewBox="0 0 176 45" preserveAspectRatio="none">
+            <path d="M 5 15 Q 48 7, 95 9 Q 148 10, 171 6 Q 174 19, 169 34 Q 118 38, 55 35 Q 16 33, 5 23 Z" fill="#f6f03b" />
+          </svg>
+          <span class="highlighter-text">No Cost!</span>
+        </div>
+
+        <!-- Subline -->
+        <p class="sky-subline" id="skySubline">
+          Turn plain words into images you love — lesson<br>
+          by lesson, from first idea to finished piece.
+        </p>
+
+        <!-- 4 Tilted Art Cards -->
+        <div class="cards-fan">
+          
+          <!-- Card 1: Cottage on sea cliff (-12 deg) -->
+          <div class="art-card card-1" title="Cottage on a sea cliff">
+            <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/37b0e4f8-9780-409b-9aa4-f855a9a4ef24.webp" alt="Cottage on a sea cliff">
+          </div>
+
+          <!-- Card 2: Orange kitten in beanie (-4 deg) -->
+          <div class="art-card card-2" title="Orange kitten in a blue beanie and scarf">
+            <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/02be94e0-6903-4edd-b5ec-a10eb62d166e.webp" alt="Orange kitten in beanie">
+          </div>
+
+          <!-- Card 3: Smiling succulent (4 deg) -->
+          <div class="art-card card-3" title="Smiling succulent in a terracotta pot">
+            <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/73e9f810-8b43-4548-a4b1-830b1b99cdfd.webp" alt="Smiling succulent">
+          </div>
+
+          <!-- Card 4: Golden retriever cowboy (12 deg) -->
+          <div class="art-card card-4" title="Golden retriever in a cowboy hat and red bandana">
+            <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/fde79b9a-ae7c-439f-9a96-f727754defb7.webp" alt="Golden retriever cowboy">
+          </div>
+        </div>
+
+        <!-- Labels & Rough Yellow Curving Arrows -->
+        
+        <!-- Label 1: Starts from Zero! (-11 deg) -->
+        <div class="highlighter-wrap label-zero">
+          <svg class="highlighter-svg" viewBox="0 0 160 38" preserveAspectRatio="none">
+            <path d="M 4 12 Q 45 6, 90 7 Q 138 8, 156 5 Q 158 16, 154 28 Q 105 32, 50 30 Q 14 28, 4 18 Z" fill="#f6f03b" />
+          </svg>
+          <span class="highlighter-text">Starts from Zero!</span>
+        </div>
+
+        <!-- Hand-drawn yellow arrow curving into first card -->
+        <svg class="arrow-zero" viewBox="0 0 48 38" fill="none">
+          <path d="M 6 8 C 22 4, 38 14, 42 28" stroke="#f6f03b" stroke-width="4.5" stroke-linecap="round" />
+          <path d="M 33 26 L 42 29 L 44 20" stroke="#f6f03b" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+        <!-- Label 2: Real Client Results (-6 deg) -->
+        <div class="highlighter-wrap label-results">
+          <svg class="highlighter-svg" viewBox="0 0 170 38" preserveAspectRatio="none">
+            <path d="M 4 12 Q 50 6, 95 7 Q 145 8, 166 5 Q 168 16, 164 28 Q 112 32, 55 30 Q 15 28, 4 18 Z" fill="#f6f03b" />
+          </svg>
+          <span class="highlighter-text">Real Client Results</span>
+        </div>
+
+        <!-- Arrow curling up to dog card -->
+        <svg class="arrow-results-up" viewBox="0 0 42 46" fill="none">
+          <path d="M 28 38 C 12 28, 14 12, 24 8" stroke="#f6f03b" stroke-width="4.5" stroke-linecap="round" />
+          <path d="M 16 12 L 25 7 L 26 18" stroke="#f6f03b" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+        <!-- Double arrow curling down -->
+        <svg class="arrow-results-down" viewBox="0 0 36 42" fill="none">
+          <path d="M 10 6 C 22 14, 20 28, 14 36" stroke="#f6f03b" stroke-width="4" stroke-linecap="round" />
+          <path d="M 8 28 L 13 36 L 22 34" stroke="#f6f03b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
+        <!-- Call to action, seated on the island -->
+        <div class="island-cta">
+          <!-- Highlighter "Zero Cost" -->
+          <div class="highlighter-wrap hl-zero-cost">
+            <svg class="highlighter-svg" viewBox="0 0 96 25" preserveAspectRatio="none">
+              <path d="M 3 8 Q 28 4, 52 5 Q 82 6, 93 4 Q 94 11, 92 20 Q 64 22, 32 21 Q 9 19, 3 13 Z" fill="#f6f03b" />
+            </svg>
+            <span class="highlighter-text">Zero Cost</span>
+          </div>
+
+          <!-- White pill "Begin the Journey" -->
+          <button class="btn-island-journey">Begin the Journey</button>
+
+          <!-- Note -->
+          <p class="cta-note">No art skills needed to start.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Web Animations Timeline
+    window.addEventListener('DOMContentLoaded', () => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) return;
+
+      const hlBegin = document.getElementById('hlBegin');
+      const headline = document.getElementById('skyHeadline');
+      const hlNoCost = document.getElementById('hlNoCost');
+      const subline = document.getElementById('skySubline');
+
+      // 1. Logo & Nav fade in
+      document.querySelector('.sky-nav').animate([
+        { opacity: 0, transform: 'translateY(-10px)' },
+        { opacity: 1, transform: 'translateY(0)' }
+      ], { duration: 500, fill: 'forwards' });
+
+      // 2. at 0.35s: "Begin" yellow swipe expands left to right
+      if (hlBegin) {
+        hlBegin.animate([
+          { opacity: 0, clipPath: 'inset(0 100% 0 0)', transform: 'scale(0.92)' },
+          { opacity: 1, clipPath: 'inset(0 0 0 0)', transform: 'scale(1)' }
+        ], { delay: 350, duration: 420, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' });
+      }
+
+      // 3. at 0.7s: Headline develops out of 14px blur (1.04 -> 1 scale)
+      if (headline) {
+        headline.animate([
+          { opacity: 0, filter: 'blur(14px)', transform: 'translateX(-50%) scale(1.04)' },
+          { opacity: 1, filter: 'blur(0px)', transform: 'translateX(-50%) scale(1)' }
+        ], { delay: 700, duration: 650, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' });
+      }
+
+      // 4. at 1.45s: "No Cost!" marks in the same way
+      if (hlNoCost) {
+        hlNoCost.animate([
+          { opacity: 0, clipPath: 'inset(0 100% 0 0)', transform: 'scale(0.92)' },
+          { opacity: 1, clipPath: 'inset(0 0 0 0)', transform: 'scale(1)' }
+        ], { delay: 1450, duration: 400, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' });
+      }
+
+      // 5. at 1.85s: Subline settles out of soft blur
+      if (subline) {
+        subline.animate([
+          { opacity: 0, filter: 'blur(8px)', transform: 'translateX(-50%) translateY(10px)' },
+          { opacity: 1, filter: 'blur(0px)', transform: 'translateX(-50%) translateY(0)' }
+        ], { delay: 1850, duration: 550, easing: 'ease-out', fill: 'forwards' });
+      }
+    });
+  </script>
+</body>
+</html>
